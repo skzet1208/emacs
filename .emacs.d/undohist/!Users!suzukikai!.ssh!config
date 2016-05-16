@@ -1,0 +1,7 @@
+
+((digest . "3b6e53720de929ea01239d250421eeeb") (undo-list nil ("
+" . -178) ((marker . 178) . -1) ((marker . 178) . -1) ((marker . 178) . -1) ((marker . 178) . -1) ((marker . 178) . -1) ((marker . 178) . -1) ((marker . 178) . -1) nil ("Host rails_dev.com
+  HostName 192.168.33.20
+  Port 3000
+  User vagrant
+  ForwardAgent yes" . 179) ((marker . 178) . -89) ((marker) . -19) ((marker) . -19) ((marker) . -56) ((marker) . -56) ((marker) . -44) ((marker) . -44) ((marker* . 178) . 71) ((marker . 178) . -14) ((marker . 178) . -43) ((marker) . -71) ((marker) . -71) ((marker . 178) . -18) ((marker) . -89) ((marker) . -89) 268 (t 22287 20985 0 0) nil undo-tree-canary))

@@ -1,0 +1,3 @@
+
+((digest . "5615b6570b1debfb2e66c8da00a4564a") (undo-list nil ("
+" . -163) ((marker) . -1) ((marker) . -1) ((marker . 163) . -1) ((marker . 163) . -1) ((marker . 163) . -1) nil ("gem 'mysql2', '>= 0.3.13', '< 0.5'" . 164) ((marker . 163) . -34) ((marker . 163) . -34) ((marker) . -34) ((marker) . -34) 198 nil (nil rear-nonsticky nil 223 . 224) (nil fontified nil 199 . 224) (199 . 224) nil (198 . 199) (t 22288 26657 0 0)))

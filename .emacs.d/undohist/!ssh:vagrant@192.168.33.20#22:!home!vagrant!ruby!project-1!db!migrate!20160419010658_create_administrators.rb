@@ -1,0 +1,2 @@
+
+((digest . "fa0a9962c1507d9b87b93d3f24d32bcb") (undo-list nil (nil rear-nonsticky nil 471 . 472) (nil fontified nil 471 . 472) (nil fontified nil 467 . 471) (nil fontified nil 465 . 467) (nil fontified nil 459 . 465) (nil fontified nil 457 . 459) (nil fontified nil 441 . 457) (nil fontified nil 439 . 441) (nil fontified nil 425 . 439) (nil fontified nil 411 . 425) (411 . 472) nil undo-tree-canary))

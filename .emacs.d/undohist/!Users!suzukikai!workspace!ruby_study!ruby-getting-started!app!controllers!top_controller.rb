@@ -1,0 +1,2 @@
+
+((digest . "86063eff0b47cb2dc2256c9b3eb193dc") (undo-list nil (63 . 65) nil ("p" . -63) nil (62 . 64) nil ("welcome" . 62) ((marker) . -7) (t 22192 54500 0 0) nil (14 . 17) nil ("W" . -14) nil ("e" . -15) nil ("l" . -16) nil ("c" . -17) nil ("o" . -18) nil ("m" . -19) nil ("e" . -20) nil (2 . 3) nil (" " . -4) nil ("#" . -7) nil ("p" . -5) nil ("-------------------------" . 2) nil (22 . 27) nil (2 . 22) nil ("#" . -2) nil (5 . 7) nil (6 . 8) nil (5 . 6) nil (4 . 5) nil (3 . 4) nil (1 . 3) nil (1 . 2) (t 22190 7124 0 0) nil undo-tree-canary))
