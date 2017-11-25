@@ -1,5 +1,13 @@
 
-((digest . "75a84bccc222de57312ed780b3cf8ffd") (undo-list nil ("
-" . 3118) ((marker . 3414) . -1) ((marker . 3414) . -1) ((marker) . -1) nil ("sudo ln -fs /vagrant /home/vagrant/ruby_dev
-" . 3118) ((marker . 3133) . -44) ((marker . 3133) . -44) ((marker . 3118) . -19) ((marker) . -44) nil ("*** シンボリックリンクを使い、vagrant配下を指定
-" . 3118) ((marker . 3414) . -30) ((marker . 3414) . -30) ((marker) . -30) nil undo-tree-canary))
+((digest . "aab27b12822864dae6b281025ffd92b7") (undo-list nil ("
+" . -4177) ((marker . 4177) . -1) ((marker . 4177) . -1) ((marker . 4177) . -1) ((marker . 4177) . -1) ((marker . 4177) . -1) ((marker . 4177) . -1) ((marker . 4177) . -1) ((marker . 4177) . -1) ((marker . 4177) . -1) ((marker . 4177) . -1) ((marker . 4177) . -1) ((marker . 4177) . -1) ((marker . 4177) . -1) ((marker . 4177) . -1) ((marker . 4177) . -1) ((marker . 4177) . -1) ((marker . 4177) . -1) ((marker . 4177) . -1) ((marker . 4177) . -1) ((marker . 4177) . -1) nil ("
+var aioashdfhas = 1;
+
+let bsdfhkajsdhfjka = 2;
+
+
+
+
+" . 4178) ((marker . 4177) . -52) ((marker . 4177) . -49) ((marker . 4177) . -49) ((marker . 4177) . -49) ((marker) . -1) ((marker) . -1) ((marker) . -23) ((marker) . -23) ((marker) . -22) ((marker) . -22) ((marker . 4177) . -49) ((marker) . -48) ((marker) . -48) ((marker) . -49) ((marker) . -49) ((marker) . -50) ((marker) . -50) ((marker) . -51) ((marker) . -51) ((marker . 4177) . -1) ((marker . 4177) . -5) ((marker . 4177) . -27) ((marker . 4177) . -5) ((marker . 4177) . -52) ((marker . 4177) . -27) ((marker . 4177) . -52) ((marker . 4177) . -21) ((marker . 4177) . -5) ((marker . 4177) . -26) ((marker . 4177) . -27) ((marker . 4177) . -52) ((marker . 4177) . -52) ((marker . 4177) . -52) ((marker) . -52) ((marker) . -52) 4230 nil ("bsdfhkajsdhfjka
+aioashdfhas
+" . 4230) ((marker . 4177) . -28) ((marker . 4177) . -28) ((marker . 4177) . -28) ((marker* . 4177) . 1) ((marker . 4177) . -16) ((marker) . -28) 4258 nil (nil rear-nonsticky nil 4256 . 4257) (nil fontified nil 4246 . 4257) (4246 . 4257) nil (4245 . 4246) nil (nil rear-nonsticky nil 4244 . 4245) (nil fontified nil 4230 . 4245) (4230 . 4245) nil undo-tree-canary))
