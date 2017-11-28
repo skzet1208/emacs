@@ -8,6 +8,8 @@
 
 ;; コメントの色変更
 (set-face-foreground 'font-lock-comment-face "#888")
+(set-face-foreground 'font-lock-comment-delimiter-face "#888")
+(set-face-foreground 'font-lock-doc-face "#888")
 
 ;; モードラインカスタマイズ
 (make-face 'mode-line-read-only-face)
@@ -60,10 +62,6 @@
     :inherit 'mode-line-position-face
     :foreground "black" :background "#eab700")
 
-;; Tramp
-(require 'tramp)
-(setq tramp-default-method "ssh")
-
 ;; ------------------------------------------------------------------------
 ; Load Path
 ;; ------------------------------------------------------------------------
@@ -106,6 +104,23 @@
 
 ;; yes or noをy or n
 (fset 'yes-or-no-p 'y-or-n-p)
+
+;; ブランチ表示
+(let ((cell (or (memq 'mode-line-position mode-line-format)
+      (memq 'mode-line-buffer-identification mode-line-format)))
+      (newcdr '(:eval (my/update-git-branch-mode-line))))
+  (unless (member newcdr mode-line-format)
+    (setcdr cell (cons newcdr (cdr cell)))))
+
+(defun my/update-git-branch-mode-line ()
+  (let* ((branch (replace-regexp-in-string
+                  "[\r\n]+\\'" ""
+                  (shell-command-to-string "git symbolic-ref -q HEAD")))
+         (mode-line-str (if (string-match "^refs/heads/" branch)
+                            (format "[%s]" (substring branch 11))
+                          "[Not Repo]")))
+    (propertize mode-line-str
+                'face '((:foreground "#04C82F" :weight bold)))))
 
 ;; ------------------------ [Keybind Setting] -------------------------
 ;; バックスペースに設定
@@ -161,7 +176,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (helm-elscreen helm-emmet redo+ helm php-mode web-mode)))
+    (flycheck helm-flycheck multiple-cursors elscreen elscreen-buffer-group elscreen-separate-buffer-list emmet-mode helm-ag helm-descbinds helm-elscreen helm-emmet redo+ helm php-mode web-mode)))
  '(tab-width 4))
 
 ;; スペースは全角のみを可視化
@@ -198,6 +213,10 @@
 ;; スペースは全角のみを可視化
 (setq whitespace-space-regexp "\\(\u3000+\\)")
 
+;; ミニバッファの大文字小文字区別無効化
+(setq read-buffer-completion-ignore-case t)
+(setq read-file-name-completion-ignore-case t)
+
 ;; 保存前に自動でクリーンアップ
 (setq whitespace-action '(auto-cleanup))
 (custom-set-faces
@@ -210,12 +229,38 @@
 ;; ------------------------------------------------------------------------
 ; Emacs Package Setting
 ;; ------------------------------------------------------------------------
+;; Tramp
+(require 'tramp)
+(setq tramp-default-method "ssh")
+
+;; web-mode
+(require 'web-mode)
+;; 拡張子の設定
+(add-to-list 'auto-mode-alist '("\\.phtml$"     . web-mode))
+(add-to-list 'auto-mode-alist '("\\.view"       . web-mode))
+(add-to-list 'auto-mode-alist '("\\.jsp$"       . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x$"   . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb$"       . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html?$"     . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl?$"      . web-mode))
+(add-to-list 'auto-mode-alist '("\\.ts$"        . web-mode))
+(add-to-list 'auto-mode-alist '("\\.hbs$"       . web-mode))
+
+;; インデント関係
+(setq web-mode-markup-indent-offset 2) ;; html
+
+;; php-mode
+(require 'php-mode)
+(set-face-foreground 'php-variable-name "#fcaf3e")
+(set-face-foreground 'php-string "#B5BD68")
+
 ;; helm load
 (require 'helm-config)
 (require 'helm-ag)
 (require 'helm-descbinds);; helm keybind setting
 (helm-descbinds-mode)
 (global-set-key (kbd "C-c h") 'helm-mini)
+(global-set-key (kbd "C-c C-h") 'helm-mini)
 (global-set-key (kbd "C-c b") 'helm-descbinds)
 (global-set-key (kbd "C-c o") 'helm-occur)
 (global-set-key (kbd "C-c s") 'helm-ag)
@@ -234,7 +279,13 @@
 ;; [helm] 最近開いたファイルの保存数を増やす
 (setq recentf-max-saved-items 3000)
 
-;; [helm] helm-emmet
+;; [helm] helm-flycheck
+(add-hook 'php-mode-hook 'flycheck-mode)
+(require 'helm-flycheck)
+(eval-after-load 'flycheck
+  '(define-key flycheck-mode-map (kbd "\C-c C-n") 'helm-flycheck))
+
+;; emmet-mode
 (require 'emmet-mode)
 (add-hook 'sgml-mode-hook 'emmet-mode)
 (add-hook 'php-mode-hook 'emmet-mode)
@@ -245,19 +296,6 @@
 (require 'redo+)
 (global-set-key (kbd "M-/") 'redo)
 (setq undo-no-redo t)
-
-(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.[gj]sp\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(setq web-mode-engines-alist
-'(("php"    . "\\.phtml\\'")
-  ("blade"  . "\\.blade\\.")))
 
 ;; elscreen
 (elscreen-start)
@@ -292,3 +330,25 @@
 
 ;; タブ毎にバッファーを持たせる
 (elscreen-separate-buffer-list-mode t)
+
+;; multiple-cursors package
+(require 'multiple-cursors)
+(global-unset-key "\C-t")
+
+;; smartrep package
+(require 'smartrep)
+(declare-function smartrep-define-key "smartrep")
+(smartrep-define-key global-map "C-t"
+  '(("C-t"      . 'mc/mark-next-like-this)
+    ("n"        . 'mc/mark-next-like-this)
+    ("p"        . 'mc/mark-previous-like-this)
+    ("m"        . 'mc/mark-more-like-this-extended)
+    ("u"        . 'mc/unmark-next-like-this)
+    ("U"        . 'mc/unmark-previous-like-this)
+    ("s"        . 'mc/skip-to-next-like-this)
+    ("S"        . 'mc/skip-to-previous-like-this)
+    ("*"        . 'mc/mark-all-like-this)
+    ("d"        . 'mc/mark-all-like-this-dwim)
+    ("i"        . 'mc/insert-numbers)
+    ("o"        . 'mc/sort-regions)
+    ("O"        . 'mc/reverse-regions)))
