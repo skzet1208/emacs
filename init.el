@@ -1,15 +1,27 @@
 ;; ------------------------------------------------------------------------
+; Load Path
+;; ------------------------------------------------------------------------
+;; package
+(require 'package)
+;; melpa読み込み
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(package-initialize)
+
+;; ------------------------------------------------------------------------
 ; Custom Theme
 ;; ------------------------------------------------------------------------
-(load-theme 'tango-dark)
+;; spacemacs theme package
+(load-theme 'spacemacs-dark t)
+
+;(load-theme 'tango-dark)
 
 ;; 背景色セット
-(set-background-color "#222")
+;(set-background-color "#222")
 
 ;; コメントの色変更
-(set-face-foreground 'font-lock-comment-face "#888")
-(set-face-foreground 'font-lock-comment-delimiter-face "#888")
-(set-face-foreground 'font-lock-doc-face "#888")
+;(set-face-foreground 'font-lock-comment-face "#888")
+;(set-face-foreground 'font-lock-comment-delimiter-face "#888")
+;(set-face-foreground 'font-lock-doc-face "#888")
 
 ;; モードラインカスタマイズ
 (make-face 'mode-line-read-only-face)
@@ -61,15 +73,6 @@
 (set-face-attribute 'mode-line-80col-face nil
     :inherit 'mode-line-position-face
     :foreground "black" :background "#eab700")
-
-;; ------------------------------------------------------------------------
-; Load Path
-;; ------------------------------------------------------------------------
-;; package
-(require 'package)
-;; melpa読み込み
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(package-initialize)
 
 ;; ------------------------------------------------------------------------
 ; Customize
