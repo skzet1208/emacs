@@ -10,18 +10,16 @@
 ;; ------------------------------------------------------------------------
 ; Custom Theme
 ;; ------------------------------------------------------------------------
-;; spacemacs theme package
+;; Package Theme
 (load-theme 'spacemacs-dark t)
 
 ;(load-theme 'tango-dark)
 
 ;; 背景色セット
-;(set-background-color "#222")
+;(set-face-background 'default "#0c0c0c")
 
 ;; コメントの色変更
-;(set-face-foreground 'font-lock-comment-face "#888")
-;(set-face-foreground 'font-lock-comment-delimiter-face "#888")
-;(set-face-foreground 'font-lock-doc-face "#888")
+(set-face-foreground 'font-lock-doc-face "#888")
 
 ;; モードラインカスタマイズ
 (make-face 'mode-line-read-only-face)
@@ -127,7 +125,7 @@
 
 ;; ------------------------ [Keybind Setting] -------------------------
 ;; バックスペースに設定
-(global-set-key "\C-h" 'delete-backward-char)
+(define-key key-translation-map [?\C-h] [?\C-?])
 
 ;; 行数で移動
 (global-set-key "\M-z" 'goto-line)
@@ -137,7 +135,7 @@
 (global-set-key "\M-p" (lambda () (interactive) (scroll-down 1)))
 
 ;; 行揃え
-(global-set-key (kbd "C-c C-f") 'align-regexp)
+(global-set-key (kbd "C-c f") 'align-regexp)
 
 ;; 画面スクロール
 (global-set-key "\M-n" (lambda () (interactive) (scroll-up 1)))
@@ -179,7 +177,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (flycheck helm-flycheck multiple-cursors elscreen elscreen-buffer-group elscreen-separate-buffer-list emmet-mode helm-ag helm-descbinds helm-elscreen helm-emmet redo+ helm php-mode web-mode)))
+    (flymake-phpcs spacemacs-theme auto-complete ag flycheck helm-flycheck multiple-cursors elscreen elscreen-buffer-group elscreen-separate-buffer-list emmet-mode helm-ag helm-descbinds helm-elscreen helm-emmet redo+ helm php-mode web-mode)))
  '(tab-width 4))
 
 ;; スペースは全角のみを可視化
@@ -216,18 +214,12 @@
 ;; スペースは全角のみを可視化
 (setq whitespace-space-regexp "\\(\u3000+\\)")
 
+;; 保存前に自動でクリーンアップ
+(setq whitespace-action '(auto-cleanup))
+
 ;; ミニバッファの大文字小文字区別無効化
 (setq read-buffer-completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
-
-;; 保存前に自動でクリーンアップ
-(setq whitespace-action '(auto-cleanup))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 
 ;; ------------------------------------------------------------------------
 ; Emacs Package Setting
@@ -254,20 +246,48 @@
 
 ;; php-mode
 (require 'php-mode)
+(add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
+(add-hook 'php-mode-hook
+          (lambda ()
+            (c-set-offset 'case-label' 4)
+            (c-set-offset 'arglist-intro' 4)
+            (c-set-offset 'arglist-cont-nonempty' 4)
+            (c-set-offset 'arglist-close' 0)
+            )
+          )
 (set-face-foreground 'php-variable-name "#fcaf3e")
 (set-face-foreground 'php-string "#B5BD68")
 
+;; flycheck
+(add-hook 'php-mode-hook 'flycheck-mode)
+
+;; flycheck-phpcs
+(require 'flymake-phpcs)
+(add-hook 'php-mode-hook 'flymake-phpcs-load)
+(custom-set-variables
+ '(flymake-phpcs-standard "GREE"))
+(custom-set-variables
+ '(flymake-phpcs-command "~/.composer/vendor/bin/phpcs"))
+
+;; auto-complete
+(require 'auto-complete)
+(global-auto-complete-mode t)
+
+;; [auto complete] key bind
+(define-key ac-completing-map (kbd "C-n") 'ac-next)
+(define-key ac-completing-map (kbd "C-p") 'ac-previous)
+
 ;; helm load
 (require 'helm-config)
-(require 'helm-ag)
+;(require 'helm-ag)
 (require 'helm-descbinds);; helm keybind setting
 (helm-descbinds-mode)
 (global-set-key (kbd "C-c h") 'helm-mini)
-(global-set-key (kbd "C-c C-h") 'helm-mini)
 (global-set-key (kbd "C-c b") 'helm-descbinds)
 (global-set-key (kbd "C-c o") 'helm-occur)
-(global-set-key (kbd "C-c s") 'helm-ag)
+;(global-set-key (kbd "C-c s") 'helm-ag)
 (global-set-key (kbd "C-c y") 'helm-show-kill-ring)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
 
 ;; Emacs終了コマンドの変更(exit -> helm-M-x)
 (global-set-key (kbd "C-x C-c") 'helm-M-x)
@@ -280,10 +300,9 @@
 (setq recentf-max-menu-items 10)
 
 ;; [helm] 最近開いたファイルの保存数を増やす
-(setq recentf-max-saved-items 3000)
+(setq recentf-max-saved-items 1000)
 
 ;; [helm] helm-flycheck
-(add-hook 'php-mode-hook 'flycheck-mode)
 (require 'helm-flycheck)
 (eval-after-load 'flycheck
   '(define-key flycheck-mode-map (kbd "\C-c C-n") 'helm-flycheck))
