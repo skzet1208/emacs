@@ -265,7 +265,7 @@
 (require 'flymake-phpcs)
 (add-hook 'php-mode-hook 'flymake-phpcs-load)
 (custom-set-variables
- '(flymake-phpcs-standard "GREE"))
+ '(flymake-phpcs-standard "PSR2"))
 (custom-set-variables
  '(flymake-phpcs-command "~/.composer/vendor/bin/phpcs"))
 
